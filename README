@@ -10,4 +10,6 @@ In the other hand, when any other host is using the network, the script will
 detect it and will lower those limits in order to not overload the network.
 
 The script is suppossed to be run periodically, every few minutes (2-3) so it
-should be combined with a schedule tool like cron.
+should be combined with a schedule tool like cron. The following line is an
+example of a valid crontab entry which will be executed every 2 minutes:
+*/2 * * * * /home/kets/Transmission-script/transmissionControl.sh
