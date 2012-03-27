@@ -2,7 +2,7 @@ This project contains a bash script for Transmission bittorrent client.
 
 The script created will set the network limits according to the number of
 clients in the network so is very useful for those headless transmission clients
-running on a home-lan server. When the server is the only hosts in the network
+running on a home-lan server. When the server is the only host in the network
 the limits will be set to 0 (no-limit) and therefore the bittorrent client will
 be transmiting as it max rates.
 
