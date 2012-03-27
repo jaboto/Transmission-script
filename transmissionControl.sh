@@ -56,7 +56,7 @@ if [ "$running" == "1" ]; then
     # Use nmap to retrieve the number of hosts in lan 
     hosts_up=`nmap -sP $lan.* | grep $lan | wc -l`
     last_read=`tail -n1 $log`
-    hosts_up_before=`tail -n1 transmission_limits.log | grep -o -E "H[0-9]+" | grep -o -E [0-9]+`
+    hosts_up_before=`tail -n1 $log | grep -o -E "H[0-9]+" | grep -o -E [0-9]+`
     if [ -z "$hosts_up_before" ]; then hosts_up_before=0; fi
 
 
