@@ -40,6 +40,8 @@ log=/home/kets/Transmission-script/transmission_limits.log
 hosts=2
 #-----------------------------------------------------------------------------------
 # Specific rate settins according to the lan usage
+# 0 as unlimmited no longer works, use a high value or improve the script to
+# work sending the command -U for unlimited upload an -D for downloads
 # -solo_(up|donw) settings for when just this machine is in lan
 # -shared_(up|down) settings for when more that this machine are in lan
 #-----------------------------------------------------------------------------------
