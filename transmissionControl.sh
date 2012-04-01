@@ -43,8 +43,8 @@ hosts=2
 # -solo_(up|donw) settings for when just this machine is in lan
 # -shared_(up|down) settings for when more that this machine are in lan
 #-----------------------------------------------------------------------------------
-solo_down=0
-solo_up=0
+solo_down=4000
+solo_up=4000
 shared_down=5
 shared_up=5
 
@@ -61,7 +61,7 @@ if [ "$running" == "1" ]; then
 
 
     # If something has changed in the lan update limits
-    echo "Hosts up $hosts_up  vs $hosts_up_before"
+    #echo "Hosts up $hosts_up  vs $hosts_up_before"
     if [ "$hosts_up" -ne "$hosts_up_before" ]; then
         if [ "$hosts_up" -gt "$hosts" ]; then
             down_limit=$shared_down
@@ -70,7 +70,7 @@ if [ "$running" == "1" ]; then
             down_limit=$solo_down
             up_limit=$solo_up
         fi
-        #echo "Setting limits $down_limit and $up_limit "
+        echo "Setting limits $down_limit and $up_limit "
         $t_remote $server:$port -n $user:$pass -d $down_limit
         $t_remote $server:$port -n $user:$pass -u $up_limit
 
