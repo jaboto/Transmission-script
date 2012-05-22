@@ -38,6 +38,7 @@ server=localhost
 port=9091
 log=/home/kets/Transmission-script/transmission_limits.log
 hosts=2
+DEBUG=1
 #-----------------------------------------------------------------------------------
 # Specific rate settins according to the lan usage
 # 0 as unlimmited no longer works, use a high value or improve the script to
@@ -64,15 +65,29 @@ if [ "$running" == "1" ]; then
 
     # If something has changed in the lan update limits
     #echo "Hosts up $hosts_up  vs $hosts_up_before"
-    if [ "$hosts_up" -ne "$hosts_up_before" ]; then
-        if [ "$hosts_up" -gt "$hosts" ]; then
+    if [ "$DEBUG" -eq "1" ]; then
+        if [ "$hosts_up" -ge "$hosts" ]; then
             down_limit=$shared_down
             up_limit=$shared_up
         else
             down_limit=$solo_down
             up_limit=$solo_up
         fi
-        echo "Setting limits $down_limit and $up_limit "
+        echo "DEBUG: Found $hosts_up";
+        echo "DEBUG: Host to trigger $hosts_up";
+        echo "DEBUG: Setting limits $down_limit and $up_limit "
+        $t_remote $server:$port -n $user:$pass -d $down_limit
+        $t_remote $server:$port -n $user:$pass -u $up_limit
+    fi
+
+    if [ "$hosts_up" -ne "$hosts_up_before" ]; then
+        if [ "$hosts_up" -ge "$hosts" ]; then
+            down_limit=$shared_down
+            up_limit=$shared_up
+        else
+            down_limit=$solo_down
+            up_limit=$solo_up
+        fi
         $t_remote $server:$port -n $user:$pass -d $down_limit
         $t_remote $server:$port -n $user:$pass -u $up_limit
 
@@ -84,7 +99,7 @@ else
     echo `date +"%d/%m/%y -- %H:%M"` "Transmission-daemon is not running!" >> $log	
 
     # Start transmission daemon with the specified config file
-    `$transmission -g $config_file`
+    $transmission -g $config_file
     echo `date +"%d/%m/%y -- %H:%M"` "Transmission-daemon was lunched!" >> $log
 fi	
 exit 0

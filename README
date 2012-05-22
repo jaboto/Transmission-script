@@ -9,7 +9,13 @@ be transmiting as it max rates.
 In the other hand, when any other host is using the network, the script will
 detect it and will lower those limits in order to not overload the network.
 
+Some Operative Systems have a FW enabled that blocks the scan ping if run
+without root. Therefore, an execution of the script with root permissions is
+recommended.  Add to /etc/sudoers the following line (changing user!)
+user ALL = (ALL) NOPASSWD: /home/kets/Transmission-script/transmissionControl.sh
+
 The script is suppossed to be run periodically, every few minutes (2-3) so it
 should be combined with a schedule tool like cron. The following line is an
-example of a valid crontab entry which will be executed every 2 minutes:
-*/2 * * * * /home/kets/Transmission-script/transmissionControl.sh
+example of a valid crontab entry which will be executed every 2 minutes using
+the sudo (without password command):
+*/2 * * * * sudo /home/kets/Transmission-script/transmissionControl.sh > /dev/null 2>&1
