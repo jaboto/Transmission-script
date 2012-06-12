@@ -63,10 +63,9 @@ if [ "$running" == "1" ]; then
     if [ -z "$hosts_up_before" ]; then hosts_up_before=0; fi
 
 
-    # If something has changed in the lan update limits
-    #echo "Hosts up $hosts_up  vs $hosts_up_before"
+    # When DEBUG, always change things
     if [ "$DEBUG" -eq "1" ]; then
-        if [ "$hosts_up" -ge "$hosts" ]; then
+        if [ "$hosts_up" -gt "$hosts" ]; then
             down_limit=$shared_down
             up_limit=$shared_up
         else
@@ -80,8 +79,10 @@ if [ "$running" == "1" ]; then
         $t_remote $server:$port -n $user:$pass -u $up_limit
     fi
 
+    # If something has changed in the lan update limits
+    #echo "Hosts up $hosts_up  vs $hosts_up_before"
     if [ "$hosts_up" -ne "$hosts_up_before" ]; then
-        if [ "$hosts_up" -ge "$hosts" ]; then
+        if [ "$hosts_up" -gt "$hosts" ]; then
             down_limit=$shared_down
             up_limit=$shared_up
         else
